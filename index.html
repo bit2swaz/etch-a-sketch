@@ -26,6 +26,10 @@
                 square.style.height = `${squareSize}px`;
                 square.style.width = `${squareSize}px`;
 
+                square.addEventListener("mouseover", function() {
+                    this.style.backgroundColor = "#333";
+                });
+
                 gridContainer.appendChild(square);
             }
         }
