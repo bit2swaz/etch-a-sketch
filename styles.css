@@ -42,7 +42,9 @@ h1 {
 
 #setGridBtn,
 #clearGridBtn,
-#eraserBtn {
+#eraserBtn,
+#clickDragBtn,
+.drawing-mode-btn {
     padding: 10px 15px;
     font-size: 1em;
     cursor: pointer;
@@ -56,7 +58,9 @@ h1 {
 
 #setGridBtn:hover,
 #clearGridBtn:hover,
-#eraserBtn:hover {
+#eraserBtn:hover,
+#clickDragBtn:hover,
+.drawing-mode-btn:hover {
     background-color: #45a049;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -64,17 +68,23 @@ h1 {
 
 #setGridBtn:active
 #clearGridBtn:active,
-#eraserBtn:active {
+#eraserBtn:active,
+#clickDragBtn:active,
+.drawing-mode-btn:active {
     transform: translateY(0);
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-#eraserBtn.active {
+#eraserBtn.active,
+#clickDragBtn.active,
+.drawing-mode-btn.active {
     background-color: #e74c3c;
     box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.4);
 }
 
-#eraserBtn.active:hover {
+#eraserBtn.active:hover,
+#clickDragBtn.active:hover,
+.drawing-mode-btn.active:hover {
     background-color: #c0392b;
 }
 
@@ -111,24 +121,32 @@ body.dark-mode h1 {
 
 body.dark-mode #setGridBtn,
 body.dark-mode #clearGridBtn,
-body.dark-mode #eraserBtn {
+body.dark-mode #eraserBtn,
+body.dark-mode #clickDragBtn,
+body.dark-mode .drawing-mode-btn {
     background-color: #6a0dad;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
 body.dark-mode #setGridBtn:hover,
 body.dark-mode #clearGridBtn:hover,
-body.dark-mode #eraserBtn:hover {
+body.dark-mode #eraserBtn:hover,
+body.dark-mode #clickDragBtn:hover,
+body.dark-mode .drawing-mode-btn:hover {
     background-color: #8a2be2;
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
 
-body.dark-mode #eraserBtn.active {
+body.dark-mode #eraserBtn.active,
+body.dark-mode #clickDragBtn.active,
+body.dark-mode .drawing-mode-btn.active {
     background-color: #e74c3c;
     box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.4);
 }
 
-body.dark-mode #eraserBtn.active:hover {
+body.dark-mode #eraserBtn.active:hover,
+body.dark-mode #clickDragBtn.active:hover,
+body.dark-mode .drawing-mode-btn.active:hover {
     background-color: #c0392b;
 }
 
@@ -225,11 +243,30 @@ body.dark-mode footer a:hover {
     gap: 10px;
 }
 
-.action-buttons-group {
+.action-buttons-group,
+.drawing-mode-buttons {
     display: flex; 
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
+}
+
+.drawing-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    width: 100%; 
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+}
+
+.color-picker-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 #gridSizeInput {
@@ -274,3 +311,14 @@ body.dark-mode #setGridBtn:hover {
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
 
+body.dark-mode #colorPicker::-webkit-color-swatch {
+    border: 2px solid #555;
+}
+
+body.dark-mode #colorPicker::-moz-color-swatch {
+    border: 2px solid #555;
+}
+
+body.dark-mode #colorPicker:focus {
+    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.4);
+}
