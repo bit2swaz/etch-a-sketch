@@ -23,3 +23,10 @@ h1 {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     background-color: #fff;
 }
+
+.grid-square {
+    border: 0.5px solid #eee;
+    box-sizing: border-box;
+    background-color: #fff;
+    transition: background-color 0.1s ease;
+}
