@@ -33,7 +33,7 @@ h1 {
 }
 
 .grid-square {
-    border: 0.5px solid #eee;
+    border: 1px solid #eee;
     box-sizing: border-box;
     background-color: #fff;
     opacity: 1;

@@ -16,7 +16,7 @@
             <div class="grid-size-control">
                 <label for="gridSizeInput">Squares per side (1-100): </label>
                 <input type="number" id="gridSizeInput" value="16" min="1" max="100">
-                <button id="newGridBtn">Set Grid</button>
+                <button id="setGridBtn">Set Grid</button>
             </div>
         </div>
 
@@ -47,8 +47,13 @@
         function createGrid(size) {
             gridContainer.innerHTML = "";
             
+            const GRID_CONTAINER_BORDER_WIDTH = 1;
+
+            const innerGridWidth = gridContainer.offsetWidth - (2 * GRID_CONTAINER_BORDER_WIDTH);
+
+            const squareSize = innerGridWidth / size;
+
             const totalSquares = size * size
-            const squareSize = gridContainer.offsetWidth / size;
 
             for (let i = 0; i < totalSquares; i++) {
                 const square = document.createElement("div");
@@ -83,10 +88,10 @@
         }
 
         setGridButton.addEventListener("click", function() {
-            const inputValue = gridSizeInput.value;
-            const newSize = parseInt(inputValue);
+            const inputVal = gridSizeInput.value;
+            const newSize = parseInt(inputVal);
 
-            if (isNan(newSize) || newSize < 1 || newSize > 100) {
+            if (isNaN(newSize) || newSize < 1 || newSize > 100) {
                 alert("Please enter a valid number between 1 and 100.");
             } else {
                 createGrid(newSize);
