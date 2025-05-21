@@ -38,6 +38,7 @@
         }
 
         const newGridButton = document.getElementById("newGridBtn");
+
         newGridButton.addEventListener("click", function() {
             let input;
             let newSize;
@@ -49,15 +50,17 @@
                     break;
                 }
 
+                newSize = parseInt(input);
+
                 if (isNaN(newSize) || newSize < 1 || newSize > 100) {
                     alert("Please enter a valid number between 1 and 100.");
                 } else {
-                    createGrid(newsize);
+                    createGrid(newSize);
                     break;
                 }
             }
         });
-        
+
         createGrid(16);
     </script>
 </body>
