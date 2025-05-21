@@ -105,7 +105,7 @@
 
         themeToggle.addEventListener("click", () => {
             const isDarkMode = body.classList.contains("dark-mode");
-            setTheme(isDarkMode);
+            setTheme(!isDarkMode);
         });
 
         document.addEventListener("DOMContentLoaded", () => {
