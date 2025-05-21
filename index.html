@@ -22,6 +22,21 @@
                 <button id="setGridBtn">Set Grid</button>
                 <button id="clearGridBtn">Clear Grid</button>
                 <button id="eraserBtn">Eraser</button>
+                <button id="clickDragBtn">Click & Drag</button>
+            </div>
+
+            <div class="drawing-controls">
+                <div class="color-picker-control">
+                    <label for="colorPicker">Pick Color: </label>
+                    <input type="color" id="colorPicker" value="#4CAF50">
+                </div>
+
+                <div class="drawing-mode-buttons">
+                    <button id="solidColorBtn" class="drawing-mode-btn active" data-mode="solid">Solid Color</button>
+                    <button id="rainbowBtn" class="drawing-mode-btn" data-mode="rainbow">Rainbow</button>
+                    <button id="shadingBtn" class="drawing-mode-btn" data-mode="shading">Shading</button>
+                </div>
+
             </div>
 
         </div>
@@ -35,18 +50,37 @@
 
     <script>
         const gridContainer = document.getElementById('grid-container');
-
         const themeToggle = document.getElementById("theme-toggle");
         const themeIcon = themeToggle.querySelector(".icon");
         const body = document.body;
-
         const gridSizeInput = document.getElementById("gridSizeInput");
         const setGridButton = document.getElementById("setGridBtn");
 
         const clearGridButton = document.getElementById("clearGridBtn");
         const eraserButton = document.getElementById("eraserBtn");
+        const clickDragButton = document.getElementById("clickDragBtn");
+
+        const colorPicker = document.getElementById('colorPicker');
+        const solidColorBtn = document.getElementById('solidColorBtn');
+        const rainbowBtn = document.getElementById('rainbowBtn');
+        const shadingBtn = document.getElementById('shadingBtn');
+        const drawingModeButtons = document.querySelectorAll('.drawing-mode-btn');
 
         let isEraserMode = false;
+        let isClickAndDragMode = false;
+        let isMouseDown = false;
+        let currentDrawingMode = 'solid';
+
+        gridContainer.addEventListener("mousedown", () => {
+            isMouseDown = true;
+        });
+        gridContainer.addEventListener('mouseup', () => {
+            isMouseDown = false;
+        });
+        body.addEventListener("mouseup", () => {
+            isMouseDown = false;
+        });
+
 
         function getRandomRGBColor() {
             const r = Math.floor(Math.random() * 256);
@@ -78,6 +112,10 @@
 
                 square.addEventListener("mouseover", function() {
 
+                    if (isClickAndDragMode && !isMouseDown) {
+                        return;
+                    }
+
                     if (isEraserMode) {
                         this.style.backgroundColor = "";
                         this.style.opacity = 1;
@@ -85,20 +123,57 @@
                         this.dataset.color = "";
                     } else {
                     let hits = parseInt(this.dataset.hits);
+                    let initialColor;
 
-                    if (hits === 0) {
-                        const randomColor = getRandomRGBColor();
-                        this.style.backgroundColor = randomColor;
-                        this.dataset.color = randomColor;
-                        this.style.opacity = "0.1";
-                        this.dataset.hits = 1;
-                    } else {
-                        if (hits < 10) {
-                            hits++;
-                            this.style.opacity = `${hits * 0.1}`;
-                            this.dataset.hits = hits;
-                        }
+                    switch(currentDrawingMode) {
+                        case "solid":
+                            this.style.backgroundColor = colorPicker.value;
+                            this.style.this.style.opacity = "1";
+                            this.dataset.hits = 1;
+                            this.dataset.color = colorPicker.value;
+                            break;
+
+                        case "rainbow":
+                            if (hits > 0) {
+                                this.style.opacity = "1";
+                            }
+                            const randomColor = getRandomRGBColor();
+                            this.style.backgroundColor = randomColor;
+                            this.dataset.color = randomColor;
+                            this.dataset.hits = 1;
+                            break;
+
+                        case "shading": 
+                            if (hits === 0) {
+                                initialColor = colorPicker.value || "#000000";
+                                this.style.backgroundColor = initialColor;
+                                this.dataset.color = initialColor;
+                                this.style.opacity = "0.1";
+                                this.dataset.hits = 1;
+                            } else {
+                                if (hits < 10) {
+                                    hits++;
+                                    this.style.opacity = `${hits * 0.1}`;
+                                    this.dataset.hits = hits;
+                                }
+                            }
+                            break;
                     }
+
+                    // if (hits === 0) {
+                    //     const randomColor = getRandomRGBColor();
+                    //     this.style.backgroundColor = randomColor;
+                    //     this.dataset.color = randomColor;
+                    //     this.style.opacity = "0.1";
+                    //     this.dataset.hits = 1;
+                    // } else {
+                    //     if (hits < 10) {
+                    //         hits++;
+                    //         this.style.opacity = `${hits * 0.1}`;
+                    //         this.dataset.hits = hits;
+                    //     }
+                    // }
+                    // }
                     }
                 });
 
@@ -133,11 +208,39 @@
             isEraserMode = !isEraserMode;
             eraserButton.classList.toggle("active", isEraserMode);
             if (isEraserMode) {
-                console.log("Eraser Mode ON");
+                drawingModeButtons.forEach(btn => btn.classList.remove("active"));
+                currentDrawingMode = null;
             } else {
-                console.log("Eraser Mode OFF");
+                currentDrawingMode = 'solid';
+                solidColorBtn.classList.add("active");
+            }
+            console.log("Eraser Mode: ", isEraserMode ? "ON" : "OFF");
+        });
+
+        clickDragButton.addEventListener("click", () => {
+            isClickAndDragMode = !isClickAndDragMode;
+            clickDragButton.classList.toggle("active", isClickAndDragMode);
+            console.log("Click & Drag Mode:", isClickAndDragMode ? "ON" : "OFF");
+        });
+
+        colorPicker.addEventListener("input", () => {
+            if (currentDrawingMode === "solid") {
             }
         });
+
+        drawingModeButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                drawingModeButtons.forEach(btn => btn.classList.remove("active"));
+                button.classList.add("active");
+                currentDrawingMode = button.dataset.mode;
+                if (isEraserMode) {
+                    isEraserMode = false;
+                    eraserButton.classList.remove("active");
+                }
+                console.log("Drawing Mode: ", currentDrawingMode);
+            });
+        });
+
 
         function setTheme(isDarkMode) {
             if (isDarkMode) {
