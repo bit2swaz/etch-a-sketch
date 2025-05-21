@@ -133,3 +133,42 @@ body.dark-mode .main-content-card {
     background: #2c2c2c;
     box-shadow: 0 8px 25px rgba(0,0,0,0.5);;
 }
+
+footer {
+    width: 100%;
+    margin-top: auto;
+    padding: 20px 0;
+    font-size: 0.9em;
+    color: #666;
+    text-align: center;
+    background-color: #e0e0e0;
+    border-top: 1px solid #ccc;
+    box-sizing: border-box;
+    transition: background-color 0.5s ease, color 0.5s ease, border-top 0.5s ease;
+}
+
+footer a {
+    color: #4caf50;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #45a049;
+    text-decoration: underline;
+}
+
+body.dark-mode footer {
+    background-color: #222;
+    color: #ccc;
+    border-top: 1px solid #444;
+}
+
+body.dark-mode footer a {
+    color: #8a2be2;
+}
+
+body.dark-mode footer a:hover {
+    color: #a765f0;
+}
