@@ -16,6 +16,13 @@
     <script>
         const gridContainer = document.getElementById('grid-container');
 
+        function getRandomRGBColor() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
         function createGrid(size) {
             gridContainer.innerHTML = "";
             
@@ -29,8 +36,25 @@
                 square.style.height = `${squareSize}px`;
                 square.style.width = `${squareSize}px`;
 
+                square.setAttribute("data-hits", 0);
+                square.setAttribute("data-color", "");
+
                 square.addEventListener("mouseover", function() {
-                    this.style.backgroundColor = "#333";
+                    let hits = parseInt(this.dataset.hits);
+
+                    if (hits === 0) {
+                        const randomColor = getRandomRGBColor();
+                        this.style.backgroundColor = randomColor;
+                        this.dataset.color = randomColor;
+                        this.style.opacity = "0.1";
+                        this.dataset.hits = 1;
+                    } else {
+                        if (hits < 10) {
+                            hits++;
+                            this.style.opacity = `${hits * 0.1}`;
+                            this.dataset.hits = hits;
+                        }
+                    }
                 });
 
                 gridContainer.appendChild(square);

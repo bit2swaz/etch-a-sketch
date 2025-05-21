@@ -28,7 +28,8 @@ h1 {
     border: 0.5px solid #eee;
     box-sizing: border-box;
     background-color: #fff;
-    transition: background-color 0.1s ease;
+    opacity: 1;
+    transition: opacity 0.1s ease, background-color 0.1s ease;
 }
 
 #newGridBtn {
