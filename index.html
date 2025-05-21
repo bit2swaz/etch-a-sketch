@@ -18,6 +18,10 @@
                 <input type="number" id="gridSizeInput" value="16" min="1" max="100">
                 <button id="setGridBtn">Set Grid</button>
             </div>
+
+            <button id="clearGridBtn">Clear Grid</button>
+            <button id="eraserBtn">Eraser</button>
+
         </div>
 
         <div id="grid-container"></div>
@@ -36,6 +40,11 @@
 
         const gridSizeInput = document.getElementById("gridSizeInput");
         const setGridButton = document.getElementById("setGridBtn");
+
+        const clearGridButton = document.getElementById("clearGridBtn");
+        const eraserButton = document.getElementById("eraserBtn");
+
+        let isEraserMode = false;
 
         function getRandomRGBColor() {
             const r = Math.floor(Math.random() * 256);
@@ -66,6 +75,13 @@
                 square.setAttribute("data-color", "");
 
                 square.addEventListener("mouseover", function() {
+
+                    if (isEraserMode) {
+                        this.style.backgroundColor = "";
+                        this.style.opacity = 1;
+                        this.dataset.hits = 0;
+                        this.dataset.color = "";
+                    } else {
                     let hits = parseInt(this.dataset.hits);
 
                     if (hits === 0) {
@@ -81,6 +97,7 @@
                             this.dataset.hits = hits;
                         }
                     }
+                    }
                 });
 
                 gridContainer.appendChild(square);
@@ -95,6 +112,28 @@
                 alert("Please enter a valid number between 1 and 100.");
             } else {
                 createGrid(newSize);
+            }
+        });
+
+        function clearGrid() {
+            const allSquares = document.querySelectorAll(".grid-square");
+            allSquares.forEach(square => {
+                square.style.backgroundColor = "";
+                square.style.opacity = 1;
+                square.dataset.hits = 0;
+                square.dataset.color = "";
+            });
+        }
+
+        clearGridButton.addEventListener("click", clearGrid);
+
+        eraserButton.addEventListener("click", () => {
+            isEraserMode = !isEraserMode;
+            eraserButton.classList.toggle("active", isEraserMode);
+            if (isEraserMode) {
+                console.log("Eraser Mode ON");
+            } else {
+                console.log("Eraser Mode OFF");
             }
         });
 
