@@ -51,3 +51,13 @@ open index.html
 
 ---
 
+## Credits
+Made with ❤️ by [bit2swaz](https://www.github.com/bit2swaz/)
+
+---
+
+## What's Next
+- Implement "Save Drawing" functionality (e.g., export grid as an image).
+- Add "Undo/Redo" capabilities for drawing actions.
+- Explore performance optimizations for extremely large grids (e.g., using HTML Canvas).
+- Further refine mobile UX for drawing with touch events.
