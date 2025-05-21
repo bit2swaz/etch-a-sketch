@@ -8,13 +8,13 @@
 </head>
 <body>
     <button id="theme-toggle" class="theme-toggle"><span class="icon">☀️</span></button>
+    <div class="main-content-card">
+        <h1>Etch-A-Sketch</h1>
 
-    <h1>Etch-A-Sketch</h1>
+        <button id="newGridBtn">Change Grid Size</button>
 
-    <button id="newGridBtn">Change Grid Size</button>
-
-    <div id="grid-container"></div>
-
+        <div id="grid-container"></div>
+    </div>
     <script>
         const gridContainer = document.getElementById('grid-container');
 
@@ -33,7 +33,7 @@
             gridContainer.innerHTML = "";
             
             const totalSquares = size * size;
-            const squareSize = 960/size;
+            const squareSize = 600/size;
 
             for (let i = 0; i < totalSquares; i++) {
                 const square = document.createElement("div");
