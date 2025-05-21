@@ -8,6 +8,9 @@
 </head>
 <body>
     <h1>Etch-A-Sketch</h1>
+
+    <button id="newGridBtn">Change Grid Size</button>
+
     <div id="grid-container"></div>
 
     <script>
@@ -33,6 +36,28 @@
                 gridContainer.appendChild(square);
             }
         }
+
+        const newGridButton = document.getElementById("newGridBtn");
+        newGridButton.addEventListener("click", function() {
+            let input;
+            let newSize;
+
+            while (true) {
+                input = prompt("Enter number of squares per size (max 100): ");
+
+                if (input === null) {
+                    break;
+                }
+
+                if (isNaN(newSize) || newSize < 1 || newSize > 100) {
+                    alert("Please enter a valid number between 1 and 100.");
+                } else {
+                    createGrid(newsize);
+                    break;
+                }
+            }
+        });
+        
         createGrid(16);
     </script>
 </body>
